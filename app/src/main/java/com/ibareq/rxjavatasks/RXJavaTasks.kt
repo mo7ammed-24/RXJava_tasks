@@ -63,7 +63,9 @@ object RXJavaTasks {
         val firstObservable = Observable.just("A", "B", "C", "D", "E").zipWith(Observable.interval(300, TimeUnit.MILLISECONDS), {item, _ -> item})
         val secondObservable = Observable.range(1,5).zipWith(Observable.interval(300, TimeUnit.MILLISECONDS), {item, _ -> item})
 
-        return Observable.
+        return Observable.zip(firstObservable,secondObservable,{ s1, s2->
+            "${s1+s2}"
+        })
     }
 
 }
