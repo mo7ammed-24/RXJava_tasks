@@ -1,6 +1,7 @@
 package com.ibareq.rxjavatasks
 
 import io.reactivex.rxjava3.core.Observable
+import java.sql.Time
 import java.util.concurrent.TimeUnit
 
 /**
@@ -17,7 +18,11 @@ object RXJavaTasks {
      * let it emit characters form A to Z each 1 second
      */
     fun task1(): Observable<String> {
-        return Observable.
+        return Observable.zip(Observable.interval(1,TimeUnit.SECONDS),Observable.create<String>{emitter->
+            for(i in 'A'..'Z'){
+                emitter.onNext(i.toString())
+            }
+        },{along,string->string})
     }
 
     /**
